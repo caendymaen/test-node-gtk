@@ -1,0 +1,16 @@
+{
+  "name": "node-gtk-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "LD_PRELOAD=/usr/lib/libgtk4-layer-shell.so node gtktest.cjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "node-gtk": "^0.14.0"
+  }
+}
