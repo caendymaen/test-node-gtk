@@ -1,52 +1,37 @@
 { lib
 , stdenv
 , buildNpmPackage
-, fetchFromGitLab
+, fetchFromGitLab,
+nodejs
 , nodePackages
-, meson
-, pkg-config
-, ninja
 , gobject-introspection
-, gtk3
-, libpulseaudio
-, gjs
+, gtk4
 , wrapGAppsHook
-, upower
-, gnome
-, gtk-layer-shell
-, glib-networking
-, networkmanager
-, libdbusmenu-gtk3
-, gvfs
-, libsoup_3
-, libnotify
-, pam
-, extraPackages ? [ ]
-, version ? "git"
-, buildTypes ? true
+, gtk4-layer-shell
 }:
 
 stdenv.mkDerivation rec {
   pname = "node-gtk-test";
-  inherit version;
+  version = "1";
 
   src = buildNpmPackage {
     name = pname;
     src = lib.cleanSource ../.;
+    #src = ../.;
 
     dontBuild = true;
 
-    npmDepsHash = "";
+    npmDepsHash = "sha256-YyAqIKsJAZwh/Nkvc6733IPvqfIHL/XQ4voY0IFcjZU=";
 
     installPhase = ''
-      mkdir $out
-      cp -r * $out
+      mkdir -p $out; cp -r * $out;
     '';
   };
 
   nativeBuildInputs = [
     wrapGAppsHook
     gobject-introspection
+    nodejs
   ];
 
   buildInputs = [
@@ -54,7 +39,7 @@ stdenv.mkDerivation rec {
     gtk4-layer-shell
   ];
 
-  outputs = [ "out" "lib" ];
+  outputs = [ "out" ];
 
   meta = with lib; {
     description = "A customizable and extensible shell";
